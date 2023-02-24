@@ -2,16 +2,29 @@
 
 class chip8
 {
+private:
+    // Registers, memory, and stack
+    unsigned char registers[16];
+    unsigned char memory[4096];
+    unsigned short index;
+    unsigned short pc;
+    unsigned char stack[16];
+    unsigned char sp;
+
+    // Timers
+    unsigned char delayTimer;
+    unsigned char soundTimer;
+
+    // Screen
+    unsigned char video[64][32];
+
+    // Keyboard
+    unsigned char keypad[16]{};
+
 public:
-    uint8_t registers[16]{};
-    uint8_t memory[4096]{};
-    uint16_t index{};
-    uint16_t pc{};
-    uint16_t stack[16]{};
-    uint8_t sp{};
-    uint8_t delayTimer{};
-    uint8_t soundTimer{};
-    uint8_t keypad[16]{};
-    uint32_t video[64 * 32]{};
-    uint16_t opcode;
+    Chip8();
+    void loadRom(const char *filename);
+    void emulateCycle();
+    void drawGraphics();
+    void setKeys();
 };
